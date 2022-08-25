@@ -1,0 +1,30 @@
+<html>
+    <head>
+    </head>
+    <body style="display: flex; align-items: center; justify-content: center;">
+        <button style="transform: scale(4);">Share</button>
+        <script type="text/javascript">
+            document.querySelector('button').addEventListener(
+                'click',
+                async () => {
+                    const blob = await (await fetch('./video.mp4')).blob()
+
+                    const video = new File([blob], 'video.mp4', { type: blob.type })
+                
+                    console.log(video);
+                
+                    try {
+                        navigator.share({
+                            url: 'https://google.com',
+                            title: 'Customizable text example',
+                            text: 'Customizable title example',
+                            files: [video],
+                        });
+                    } catch {
+                        alert('Native share not supported');
+                    }
+                },
+            );
+        </script>
+    </body>
+</html>
