@@ -1,18 +1,54 @@
 <html>
     <head>
+        <title>Page Title</title>
+        <meta property="og:title" content="Page Title" />
+        <meta property="og:description" content="Page Description" />
+        <meta property="og:image" content="./gif.gif" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Page Title">
+        <meta name="twitter:description" content="Page Description">
+        <meta name="twitter:image" content="./gif.gif">
     </head>
-    <body style="display: flex; align-items: center; justify-content: center;">
-        <button style="transform: scale(4);">Share</button>
+    <body style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div>
+            <button id="share">Share</button>
+        </div>
+        <hr>
+        <div>
+            <button id="facebook">Facebook</button>
+            <button id="twitter">Twitter</button>
+            <button id="linkedin">Linked In</button>
+        </div>
         <script type="text/javascript">
-            document.querySelector('button').addEventListener(
+            const url = encodeURI(document.location.href);
+
+            document.querySelector('#facebook').addEventListener(
                 'click',
-                
+                () => {
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=Customizable_text_example`, '_blank');
+                }
+            );
+
+            document.querySelector('#twitter').addEventListener(
+                'click',
+                () => {
+                    window.open(`https://twitter.com/intent/tweet?via=lme&text=Customizable_text_example&url=${url}`, '_blank');
+                }
+            );
+
+            document.querySelector('#linkedin').addEventListener(
+                'click',
+                () => {
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+                }
+            );
+
+            document.querySelector('#share').addEventListener(
+                'click',
                 async () => {
                     const blob = await (await fetch('./video.mp4')).blob()
 
                     const video = new File([blob], 'video.mp4', { type: blob.type })
-                
-                    console.log(video);
                 
                     try {
                         navigator.share({
